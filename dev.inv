@@ -1,2 +1,2 @@
 [dev]
-test.azure.i-screammedia.com ansible_user=azureuser
+test.azure.i-screammedia.com ansible_user=azureuser ansible_port=16215
