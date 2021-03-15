@@ -1,2 +1,2 @@
 [dev]
-test.azure.i-screammedia.com ansible_user=azureuser ansible_port=16215
+10.1.11.9 ansible_user=azureuser ansible_ssh_port: 16215
