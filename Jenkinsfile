@@ -8,7 +8,7 @@ pipeline {
         stage('SCM'){
             steps{
                 cleanWs()
-                git branch: 'main', credentialsId: 'keenedge',
+                git branch: 'master', credentialsId: 'keenedge',
                 url: 'http://1.209.6.225:18080/jaeholee/college.git'
             }
         }
@@ -21,7 +21,7 @@ pipeline {
 
         stage('Docker Build'){
             steps{
-                sh "docker build . -t hiclass.azurecr.io/lys:${BUILD_NUMBER}"
+                sh "docker build . -t hiclass.azurecr.io/college:${BUILD_NUMBER}"
             }
         }
 
