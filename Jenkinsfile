@@ -1,50 +1,42 @@
-pipeline{
+pipeline {
     agent any
     tools {
-      maven 'maven3'
-    }
-    environment {
-      DOCKER_TAG = getVersion()
-    }
+  		maven 'M2_HOME'  // maven home dir
+  	}
+
     stages{
         stage('SCM'){
             steps{
-                git credentialsId: 'github', 
-                    url: 'https://github.com/javahometech/dockeransiblejenkins'
+                cleanWs()
+                git branch: 'main', credentialsId: 'keenedge',
+                url: 'http://1.209.6.225:18080/jaeholee/college.git'
             }
         }
-        
+
         stage('Maven Build'){
             steps{
-                sh "mvn clean package"
+                sh "mvn clean install"
             }
         }
-        
+
         stage('Docker Build'){
             steps{
-                sh "docker build . -t kammana/hariapp:${DOCKER_TAG} "
+                sh "docker build . -t hiclass.azurecr.io/lys:${BUILD_NUMBER}"
             }
         }
-        
-        stage('DockerHub Push'){
+
+        stage('Dockerhub Push'){
             steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u kammana -p ${dockerHubPwd}"
+                withCredentials([string(credentialsId: 'azure-docker-registry', variable: 'azuredockerhub')]) {
+                        sh "docker login hiclass.azurecr.io -u hiclass -p ${azuredockerhub}"
                 }
-                
-                sh "docker push kammana/hariapp:${DOCKER_TAG} "
-            }
+                        sh "docker push hiclass.azurecr.io/college:${BUILD_NUMBER}"
+             }
         }
-        
         stage('Docker Deploy'){
             steps{
-              ansiblePlaybook credentialsId: 'dev-server', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yml'
-            }
+                ansiblePlaybook credentialsId: 'college-app.azure.i-screammedia.com', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${BUILD_NUMBER}", installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yml'
+           }
         }
     }
-}
-
-def getVersion(){
-    def commitHash = sh label: '', returnStdout: true, script: 'git rev-parse --short HEAD'
-    return commitHash
 }

@@ -1,2 +1,2 @@
-[dev]
-test.azure.i-screammedia.com:16215 ansible_user=azureuser
+[college-app]
+college-app.azure.i-screammedia.com:16215 ansible_user=azureuser
