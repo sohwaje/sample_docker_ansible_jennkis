@@ -2,6 +2,9 @@
 - hosts: college-app
   # become: True
   tasks:
+    - name: docker hub login
+      shell: az acr login --name hiclass
+
     - name: Start the container
       docker_container:
         name: college-app
@@ -9,3 +12,13 @@
         state: started
         published_ports:
           - 0.0.0.0:8080:8080
+
+    - name: Prune everything
+      docker_prune:
+        containers: yes
+        images: yes
+        images_filters:
+          dangling: false
+        networks: yes
+        volumes: yes
+        builder_cache: yes
