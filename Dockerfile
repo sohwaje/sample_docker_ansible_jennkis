@@ -1,5 +1,5 @@
 FROM openjdk:8-jre-alpine
-COPY ./target/*.war app.war
+COPY ./target/*.jar app.jar
 # COPY scouter/ scouter
 
 
@@ -10,5 +10,5 @@ RUN apk update && apk add curl && mkdir /logs
 
 ## app Start
 # CMD ["java", "-jar", "-Dspring.profiles.active=stage", "-XX:MaxMetaspaceSize=512m", "-XX:MetaspaceSize=256m", "-Xms2048m", "-Xmx2048m", "/app.jar"]
-CMD ["java", "-jar","-XX:MaxMetaspaceSize=512m", "-XX:MetaspaceSize=256m", "-Xms2048m", "-Xmx2048m", "/app.war"]
+CMD ["java", "-jar","-XX:MaxMetaspaceSize=512m", "-XX:MetaspaceSize=256m", "-Xms2048m", "-Xmx2048m", "/app.jar"]
 EXPOSE 8080
