@@ -1,2 +1,2 @@
 [dev]
-test-vm-1.azure.i-screammedia.com ansible_oport=16215, ansible_user=ec2-user
+test-vm-1.azure.i-screammedia.com:16215 ansible_user=azureuser
