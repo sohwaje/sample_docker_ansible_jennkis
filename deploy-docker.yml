@@ -3,7 +3,7 @@
   # become: True
   tasks:
     - name: docker hub login
-      shell: az acr login --name hiclass
+      shell: sudo az acr login --name hiclass
 
     - name: Start the container
       docker_container:
