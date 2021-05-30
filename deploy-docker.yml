@@ -15,13 +15,13 @@
           - 0.0.0.0:8080:8080
       become: yes
 
-    - name: Prune everything
-      docker_prune:
-        containers: yes
-        images: yes
-        images_filters:
-          dangling: false
-        networks: yes
-        volumes: yes
-        builder_cache: yes
-      become: yes
+    # - name: Prune everything
+    #   docker_prune:
+    #     containers: yes
+    #     images: yes
+    #     images_filters:
+    #       dangling: false
+    #     networks: yes
+    #     volumes: yes
+    #     builder_cache: yes
+    #   become: yes
