@@ -1,2 +1,2 @@
 [dev]
-test-vm-1.azure.i-screammedia.com:16215 ansible_user=azureuser
+10.1.11.9:16215 ansible_user=azureuser
