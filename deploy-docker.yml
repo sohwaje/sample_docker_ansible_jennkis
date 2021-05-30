@@ -3,7 +3,8 @@
   # become: True
   tasks:
     - name: docker hub login
-      shell: sudo az acr login --name hiclass
+      shell: az acr login --name hiclass
+      become: yes
 
     - name: Start the container
       docker_container:
@@ -12,6 +13,7 @@
         state: started
         published_ports:
           - 0.0.0.0:8080:8080
+      become: yes
 
     - name: Prune everything
       docker_prune:
@@ -22,3 +24,4 @@
         networks: yes
         volumes: yes
         builder_cache: yes
+      become: yes
