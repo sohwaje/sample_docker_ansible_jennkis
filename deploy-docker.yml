@@ -1,5 +1,5 @@
 ---
-- hosts: college-app
+- hosts: test-vm-1.azure.i-screammedia.com
   # become: True
   tasks:
     - name: docker hub login
